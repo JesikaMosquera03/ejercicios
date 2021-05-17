@@ -1,0 +1,75 @@
+---
+title: "Primer ejercicio retornos guia coursera"
+output: html_document
+---
+Sys.setenv(TZ = "UTC")
+```{r}
+library(quantmod)
+aus<-getSymbols("DEXUSAL",src="FRED",auto.assign=FALSE)
+aus <- na.omit(aus)
+aus <- aus["1979-12-31/2017-12-31"]
+names(aus) <- "TR"
+head(aus,3)
+tail(aus,3)
+```
+
+
+
+
+
+
+```{r}
+logaus<-diff(log(aus$TR))[-1]
+round(head(logaus,3),6)
+```
+
+```{r}
+ret<-exp(logaus)-1
+round(tail(ret,3),6)
+```
+
+```{r}
+logret.w <- apply.weekly(logaus,sum)
+round(head(logret.w,3),6)
+```
+
+```{r}
+logret.m <- apply.monthly(logaus,sum)
+round(head(logret.m,3),6)
+```
+
+```{r}
+
+logret.q <- apply.quarterly(logaus,sum)
+round(tail(logret.q,3),6)
+```
+
+```{r}
+
+logret.y <- apply.yearly(logaus,sum)
+round(head(logret.y,3),6)
+```
+
+####discreto
+
+
+```{r}
+ret.w<-exp(logret.w)-1
+round(head(ret.w,3),6)
+```
+
+```{r}
+ret.m <- exp(logret.m)-1
+round(head(ret.m,3),6)
+```
+
+```{r}
+ret.q <- exp(logret.q)-1
+round(head(ret.q,3),6)
+```
+
+```{r}
+ret.y <- exp(logret.y)-1
+round(tail(ret.y,3),6)
+```
+
